@@ -37,7 +37,7 @@
             android:layout_height="@dimen/size" />
 
         <Button
-            android:text="X"
+            android:text="x"
             android:id="@+id/buttonMul"
             android:layout_width="@dimen/size"
             android:layout_height="@dimen/size"
