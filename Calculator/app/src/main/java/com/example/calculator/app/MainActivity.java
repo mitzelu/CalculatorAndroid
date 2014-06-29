@@ -9,9 +9,11 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity implements OnClickListener
 {
-    TextView result;
+    TextView result, intermediaryResult;
     String operator = " ";
     float resultNumber;
+    boolean clearScreen = true;
+    boolean clearDot = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,10 +22,11 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
         setContentView(R.layout.activity_main);
 
         result = (TextView) findViewById(R.id.result);
+        intermediaryResult = (TextView) findViewById(R.id.intermediaryResult);
 
         int ButtonsList[] = {R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5,
                              R.id.button6, R.id.button7, R.id.button8, R.id.button9, R.id.buttonCE, R.id.buttonC,
-                             R.id.buttonDot, R.id.buttonPlusMinus, R.id.buttonPar, R.id.buttonDiv, R.id.buttonMul,
+                             R.id.buttonDot, R.id.buttonDiv, R.id.buttonMul, R.id.buttonPlusMinus, R.id.buttonPar,
                              R.id.buttonAdd, R.id.buttonSub, R.id.buttonEqual};
 
         for (int id:ButtonsList)
@@ -34,13 +37,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 
     }
 
-    public void checkZero()
+    /*public void checkZero(String text)
     {
-        if (result.equals("0"))
+        if (this.clearScreen)
         {
-            result.setText(" ");
+            result.setText("");
+            clearScreen = false;
         }
-    }
+        intermediaryResult.append(text);
+    }*/
 
     @Override
     public void onClick(View view)
@@ -48,83 +53,79 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
         switch (view.getId())
         {
             case R.id.button0:
-                result.append("0");
+                intermediaryResult.append("0");
                 break;
 
             case R.id.button1:
-                checkZero();
-                result.append("1");
+                intermediaryResult.append("1");
                 break;
 
             case R.id.button2:
-                checkZero();
-                result.append("2");
+                intermediaryResult.append("2");
                 break;
 
             case R.id.button3:
-                if (result.equals("0"))
-                {
-                    result.setText("A");
-                }
-                result.append("3");
+                intermediaryResult.append("3");
                 break;
 
             case R.id.button4:
-                checkZero();
-                result.append("4");
+                intermediaryResult.append("4");
                 break;
 
             case R.id.button5:
-                checkZero();
-                result.append("5");
+                intermediaryResult.append("5");
                 break;
 
             case R.id.button6:
-                checkZero();
-                result.append("6");
+                intermediaryResult.append("6");
                 break;
 
             case R.id.button7:
-                checkZero();
-                result.append("7");
+                intermediaryResult.append("7");
                 break;
 
             case R.id.button8:
-                checkZero();
-                result.append("8");
+                intermediaryResult.append("8");
                 break;
 
             case R.id.button9:
-                checkZero();
-                result.append("9");
+                intermediaryResult.append("9");
                 break;
 
             case R.id.buttonAdd:
                 operator = "+";
-                result.append(" + ");
+                intermediaryResult.append(" + ");
+               // this.clearDot = true;
                 break;
 
             case R.id.buttonSub:
                 operator = "-";
-                result.append(" - ");
+                intermediaryResult.append(" - ");
+               // this.clearDot = true;
                 break;
 
             case R.id.buttonDiv:
                 operator = "÷";
-                result.append(" ÷ ");
+                intermediaryResult.append(" ÷ ");
+               // this.clearDot = true;
                 break;
 
             case R.id.buttonMul:
                 operator = "x";
-                result.append(" x ");
+                intermediaryResult.append(" x ");
+               // this.clearDot = true;
                 break;
 
             case R.id.buttonDot:
-                result.append(".");
+                if (!intermediaryResult.getText().toString().contains(".")|| this.clearDot)
+                {
+                    intermediaryResult.append(".");
+                    this.clearDot = false;
+                }
                 break;
 
             case R.id.buttonEqual:
-                String inputStr = result.getText().toString();
+                String inputStr = intermediaryResult.getText().toString();
                 String [] r = inputStr.split("\\s+");
 
                 Float firstNumber=Float.parseFloat(r[0]);
@@ -150,12 +151,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
                     resultNumber = firstNumber * secondNumber;
                 }
 
-                result.setText(String.valueOf(resultNumber));
+                result.setText("=" + String.valueOf(resultNumber));
+                this.clearScreen = true;
                 break;
 
             case R.id.buttonCE:
                 result.setText("0");
+                intermediaryResult.setText("");
                 operator = " ";
+                this.clearScreen = true;
                 break;
 
             default:
