@@ -5,7 +5,7 @@ Task for Internship 2014
 
 ## Intro
 
-Simple Android Application, based on standard one /link/
+Simple Android Application, based on standard one
 
  - expected result :
  	
