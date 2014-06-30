@@ -12,7 +12,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
     TextView result, intermediaryResult;
     String operator = " ";
     float resultNumber;
-    boolean clearScreen = true;
+    boolean clearScreen = false;
     boolean clearDot = true;
 
     @Override
@@ -36,15 +36,18 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
         }
     }
 
-    /*public void checkZero(String text)
+    public void setOperator(String text)
     {
         if (this.clearScreen)
         {
             result.setText("");
-            clearScreen = false;
+            intermediaryResult.setText("");
+            //String setResult = intermediaryResult.getText().toString().substring(0,intermediaryResult.getText().toString().length()) + resultNumber;
+            intermediaryResult.setText(String.valueOf(resultNumber));
+
         }
         intermediaryResult.append(text);
-    }*/
+    }
 
     @Override
     public void onClick(View view)
@@ -93,29 +96,32 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 
             case R.id.buttonAdd:
                 operator = "+";
-                intermediaryResult.append("  + ");
+                //intermediaryResult.append("+");
                 //OperatorDetect();
+                setOperator("+");
                 this.clearDot = true;
                 break;
 
             case R.id.buttonSub:
                 operator = "-";
-                intermediaryResult.append("  - ");
+                //intermediaryResult.append("-");
                 //OperatorDetect();
+                setOperator("-");
                 this.clearDot = true;
                 break;
 
             case R.id.buttonDiv:
                 operator = "÷";
-                intermediaryResult.append("  ÷ ");
+                //intermediaryResult.append("÷");
                 //OperatorDetect();
+                setOperator("÷");
                 this.clearDot = true;
                 break;
 
             case R.id.buttonMul:
                 operator = "x";
-                intermediaryResult.append("  x ");
-                //OperatorDetect();
+                //intermediaryResult.append("x");
+                setOperator("x");
                 this.clearDot = true;
                 break;
 
@@ -134,13 +140,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
             case R.id.buttonEqual:
 
                 String inputStr = intermediaryResult.getText().toString();
-                String [] r = inputStr.split("\\s+");
+               // String [] r = inputStr.split("\\s+");
+                String [] r = inputStr.split("[-+÷x]");
+
                // int nrOperands = r.length;
 
                // for (int i = 0; i < nrOperands; i = i + 2)
                // {
                     Float  firstNumber  = Float.parseFloat(r[0]);
-                    Float  secondNumber  = Float.parseFloat(r[2]);
+                    Float  secondNumber  = Float.parseFloat(r[1]);
 
                         if (operator.equals("+"))
                         {
@@ -166,7 +174,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
                 this.clearScreen = true;
                 break;
 
-           case R.id.buttonPlusMinus:
+           /*case R.id.buttonPlusMinus:
 
                String str = intermediaryResult.getText().toString();
                StringBuilder newStr = new StringBuilder(str);
@@ -182,20 +190,20 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
                     clearScreen = false;
 
                 }
-                break;
+                break;*/
 
             case R.id.buttonCE:
                 result.setText("");
                 intermediaryResult.setText("");
                 //operator = " ";
-                this.clearScreen = true;
+                this.clearScreen = false;
                 break;
 
             case R.id.buttonC:
 
                 if(intermediaryResult.getText().toString().length() > 1)
                 {
-                    String screen_new = intermediaryResult.getText().toString().substring(0, intermediaryResult.getText().toString().length()-1);
+                    String screen_new = intermediaryResult.getText().toString().substring(0,intermediaryResult.getText().toString().length()-1);
                     intermediaryResult.setText(screen_new);
                 }
                 else

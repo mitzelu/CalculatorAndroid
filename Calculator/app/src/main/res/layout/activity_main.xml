@@ -38,8 +38,8 @@
             android:textColor="#ab5c00" />
 
         <Button
-            android:text="CE"
-            android:id="@+id/buttonCE"
+            android:text="C"
+            android:id="@+id/buttonC"
             android:layout_width="@dimen/size"
             android:layout_height="@dimen/size"
             android:textColor="#ffffff"
@@ -67,8 +67,8 @@
             android:layout_margin="2dp" />
 
         <Button
-            android:text="C"
-            android:id="@+id/buttonC"
+            android:text="CE"
+            android:id="@+id/buttonCE"
             android:layout_width="@dimen/size"
             android:layout_height="@dimen/size"
             android:textColor="#ffffff"
