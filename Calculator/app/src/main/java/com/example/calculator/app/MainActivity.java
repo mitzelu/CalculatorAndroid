@@ -34,7 +34,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
             Button button_id = (Button) findViewById(id);
             button_id.setOnClickListener((View.OnClickListener) this);
         }
-
     }
 
     /*public void checkZero(String text)
@@ -94,78 +93,119 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 
             case R.id.buttonAdd:
                 operator = "+";
-                intermediaryResult.append(" + ");
-               // this.clearDot = true;
+                intermediaryResult.append("  + ");
+                //OperatorDetect();
+                this.clearDot = true;
                 break;
 
             case R.id.buttonSub:
                 operator = "-";
-                intermediaryResult.append(" - ");
-               // this.clearDot = true;
+                intermediaryResult.append("  - ");
+                //OperatorDetect();
+                this.clearDot = true;
                 break;
 
             case R.id.buttonDiv:
                 operator = "÷";
-                intermediaryResult.append(" ÷ ");
-               // this.clearDot = true;
+                intermediaryResult.append("  ÷ ");
+                //OperatorDetect();
+                this.clearDot = true;
                 break;
 
             case R.id.buttonMul:
                 operator = "x";
-                intermediaryResult.append(" x ");
-               // this.clearDot = true;
+                intermediaryResult.append("  x ");
+                //OperatorDetect();
+                this.clearDot = true;
                 break;
 
             case R.id.buttonDot:
                 if (!intermediaryResult.getText().toString().contains(".")|| this.clearDot)
                 {
+                    /*if (intermediaryResult.getText().toString().equals(""))
+                    {
+                        intermediaryResult.append("0");
+                    }*/
                     intermediaryResult.append(".");
                     this.clearDot = false;
                 }
                 break;
 
             case R.id.buttonEqual:
+
                 String inputStr = intermediaryResult.getText().toString();
                 String [] r = inputStr.split("\\s+");
+               // int nrOperands = r.length;
 
-                Float firstNumber=Float.parseFloat(r[0]);
-                Float secondNumber=Float.parseFloat(r[2]);
+               // for (int i = 0; i < nrOperands; i = i + 2)
+               // {
+                    Float  firstNumber  = Float.parseFloat(r[0]);
+                    Float  secondNumber  = Float.parseFloat(r[2]);
 
-                if (operator.equals("+"))
-                {
-                    resultNumber = firstNumber + secondNumber;
-                }
+                        if (operator.equals("+"))
+                        {
+                            resultNumber = firstNumber + secondNumber;
+                        }
 
-                if (operator.equals("-"))
-                {
-                    resultNumber = firstNumber - secondNumber;
-                }
+                        if (operator.equals("-"))
+                        {
+                            resultNumber = firstNumber - secondNumber;
+                        }
 
-                if (operator.equals("÷"))
-                {
-                    resultNumber = firstNumber / secondNumber;
-                }
+                        if (operator.equals("÷"))
+                        {
+                            resultNumber = firstNumber / secondNumber;
+                        }
 
-                if (operator.equals("x"))
-                {
-                    resultNumber = firstNumber * secondNumber;
-                }
-
+                        if (operator.equals("x"))
+                        {
+                            resultNumber = firstNumber * secondNumber;
+                        }
+               // }
                 result.setText("=" + String.valueOf(resultNumber));
                 this.clearScreen = true;
                 break;
 
+           case R.id.buttonPlusMinus:
+
+               String str = intermediaryResult.getText().toString();
+               StringBuilder newStr = new StringBuilder(str);
+
+                if (this.clearScreen)
+                {
+                    //intermediaryResult = intermediaryResult.substring;
+
+                    newStr.insert(0, '-');
+
+                    intermediaryResult.setText("");
+                    intermediaryResult.append(newStr);
+                    clearScreen = false;
+
+                }
+                break;
+
             case R.id.buttonCE:
-                result.setText("0");
+                result.setText("");
                 intermediaryResult.setText("");
-                operator = " ";
+                //operator = " ";
                 this.clearScreen = true;
+                break;
+
+            case R.id.buttonC:
+
+                if(intermediaryResult.getText().toString().length() > 1)
+                {
+                    String screen_new = intermediaryResult.getText().toString().substring(0, intermediaryResult.getText().toString().length()-1);
+                    intermediaryResult.setText(screen_new);
+                }
+                else
+                {
+                    intermediaryResult.setText("");
+                }
                 break;
 
             default:
                 break;
-
-
         }
 
     }

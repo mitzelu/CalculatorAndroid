@@ -2,17 +2,17 @@
 <pre-dex-items>
 
     <item
-        dex="D:\Android Studio\CalculatorAndroid\Calculator\app\build\intermediates\pre-dexed\debug\classes-191fb25368cafc3ea351a7dd6faa7579431d038a.jar"
-        jar="D:\Android Studio\CalculatorAndroid\Calculator\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
-    <item
         dex="D:\Android Studio\CalculatorAndroid\Calculator\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-63eac0660fb08878ffb57e757794101784dc9eff.jar"
         jar="D:\Android Studio\CalculatorAndroid\Calculator\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="D:\Android Studio\CalculatorAndroid\Calculator\app\build\intermediates\pre-dexed\debug\classes-191fb25368cafc3ea351a7dd6faa7579431d038a.jar"
+        jar="D:\Android Studio\CalculatorAndroid\Calculator\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
     <item
         dex="D:\Android Studio\CalculatorAndroid\Calculator\app\build\intermediates\pre-dexed\debug\classes-79a3e52509c9a86dd6521457a2d0e0f10558ed61.jar"
         jar="D:\Android Studio\CalculatorAndroid\Calculator\build\intermediates\exploded-aar\com.android.support\appcompat-v7\20.0.0\classes.jar"
