@@ -9,12 +9,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.math.BigDecimal;
 
 public class MainActivity extends ActionBarActivity implements OnClickListener
 {
     TextView result, intermediaryResult;
     String operator = " ";
-    float resultNumber;
+    BigDecimal resultNumber;
     boolean clearScreen = false;
     boolean clearDot = true;
 
@@ -47,11 +48,26 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
         {
             result.setText("");
             intermediaryResult.setText("");
-            //String setResult = intermediaryResult.getText().toString().substring(0,intermediaryResult.getText().toString().length()) + resultNumber;
-            intermediaryResult.setText(String.valueOf(resultNumber));
+
+            if (!result.getText().toString().contains("Infinity"))
+            {
+                intermediaryResult.setText(String.valueOf(resultNumber));
+            }
 
         }
         intermediaryResult.append(text);
+        this.clearScreen = false;
+    }
+
+    public void setNumber(String number)
+    {
+        if (this.clearScreen)
+        {
+            result.setText("");
+            intermediaryResult.setText("");
+            clearScreen = false;
+        }
+        intermediaryResult.append(number);
     }
 
     @Override
@@ -59,43 +75,43 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
     {
         switch (view.getId()) {
             case R.id.button0:
-                intermediaryResult.append("0");
+                setNumber("0");
                 break;
 
             case R.id.button1:
-                intermediaryResult.append("1");
+                 setNumber("1");
                 break;
 
             case R.id.button2:
-                intermediaryResult.append("2");
+                setNumber("2");
                 break;
 
             case R.id.button3:
-                intermediaryResult.append("3");
+                setNumber("3");
                 break;
 
             case R.id.button4:
-                intermediaryResult.append("4");
+                setNumber("4");
                 break;
 
             case R.id.button5:
-                intermediaryResult.append("5");
+                setNumber("5");
                 break;
 
             case R.id.button6:
-                intermediaryResult.append("6");
+                setNumber("6");
                 break;
 
             case R.id.button7:
-                intermediaryResult.append("7");
+                setNumber("7");
                 break;
 
             case R.id.button8:
-                intermediaryResult.append("8");
+                setNumber("8");
                 break;
 
             case R.id.button9:
-                intermediaryResult.append("9");
+                setNumber("9");
                 break;
 
             case R.id.buttonAdd:
@@ -146,29 +162,43 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 
                     String [] r = inputStr.split("[-+÷x]");
 
-                    Float  firstNumber  = Float.parseFloat(r[0]);
-                    Float  secondNumber  = Float.parseFloat(r[1]);
+                   // Float  firstNumber  = Float.parseFloat(r[0]);
+                   // Float  secondNumber  = Float.parseFloat(r[1]);
+
+                    BigDecimal firstNumber = new BigDecimal(r[0]);
+                    BigDecimal secondNumber = new BigDecimal(r[1]);
+                    BigDecimal zeroException = new BigDecimal("0");
 
                     if (operator.equals("+"))
                     {
-                        resultNumber = firstNumber + secondNumber;
+                        resultNumber = firstNumber.add(secondNumber);
                     }
 
                     if (operator.equals("-"))
                     {
-                        resultNumber = firstNumber - secondNumber;
+                        resultNumber = firstNumber.subtract(secondNumber);
                     }
 
                     if (operator.equals("÷"))
                     {
-                        resultNumber = firstNumber / secondNumber;
+                        if (secondNumber.compareTo(zeroException) == 0)
+                        {
+                            result.setText("Infinity");
+                            this.clearScreen = true;
+                            break;
+                        }
+                        else
+                        {
+                            resultNumber = firstNumber.divide(secondNumber);
+                        }
+
                     }
 
                     if (operator.equals("x"))
                     {
-                        resultNumber = firstNumber * secondNumber;
+                        resultNumber = firstNumber.multiply(secondNumber);
                     }
-                    // }
+
                     result.setText("=" + String.valueOf(resultNumber));
                     this.clearScreen = true;
 
