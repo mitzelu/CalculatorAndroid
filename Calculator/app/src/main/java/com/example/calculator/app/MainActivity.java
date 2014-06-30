@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements OnClickListener
 {
@@ -52,8 +53,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
     @Override
     public void onClick(View view)
     {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.button0:
                 intermediaryResult.append("0");
                 break;
@@ -126,8 +126,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
                 break;
 
             case R.id.buttonDot:
-                if (!intermediaryResult.getText().toString().contains(".")|| this.clearDot)
-                {
+                if (!intermediaryResult.getText().toString().contains(".") || this.clearDot) {
                     /*if (intermediaryResult.getText().toString().equals(""))
                     {
                         intermediaryResult.append("0");
@@ -140,39 +139,36 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
             case R.id.buttonEqual:
 
                 String inputStr = intermediaryResult.getText().toString();
-               // String [] r = inputStr.split("\\s+");
-                String [] r = inputStr.split("[-+÷x]");
 
-               // int nrOperands = r.length;
+                    String [] r = inputStr.split("[-+÷x]");
 
-               // for (int i = 0; i < nrOperands; i = i + 2)
-               // {
                     Float  firstNumber  = Float.parseFloat(r[0]);
                     Float  secondNumber  = Float.parseFloat(r[1]);
 
-                        if (operator.equals("+"))
-                        {
-                            resultNumber = firstNumber + secondNumber;
-                        }
+                    if (operator.equals("+"))
+                    {
+                        resultNumber = firstNumber + secondNumber;
+                    }
 
-                        if (operator.equals("-"))
-                        {
-                            resultNumber = firstNumber - secondNumber;
-                        }
+                    if (operator.equals("-"))
+                    {
+                        resultNumber = firstNumber - secondNumber;
+                    }
 
-                        if (operator.equals("÷"))
-                        {
-                            resultNumber = firstNumber / secondNumber;
-                        }
+                    if (operator.equals("÷"))
+                    {
+                        resultNumber = firstNumber / secondNumber;
+                    }
 
-                        if (operator.equals("x"))
-                        {
-                            resultNumber = firstNumber * secondNumber;
-                        }
-               // }
-                result.setText("=" + String.valueOf(resultNumber));
-                this.clearScreen = true;
-                break;
+                    if (operator.equals("x"))
+                    {
+                        resultNumber = firstNumber * secondNumber;
+                    }
+                    // }
+                    result.setText("=" + String.valueOf(resultNumber));
+                    this.clearScreen = true;
+
+                     break;
 
            /*case R.id.buttonPlusMinus:
 
@@ -192,24 +188,34 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
                 }
                 break;*/
 
-            case R.id.buttonCE:
+            case R.id.buttonC:
                 result.setText("");
                 intermediaryResult.setText("");
                 //operator = " ";
                 this.clearScreen = false;
                 break;
 
-            case R.id.buttonC:
+            case R.id.buttonCE:
 
-                if(intermediaryResult.getText().toString().length() > 1)
+               /* if(intermediaryResult.getText().toString().length() > 1)
+                {
+                    String screen_new = intermediaryResult.getText().toString().substring(0,intermediaryResult.getText().toString().length()-1);
+                    intermediaryResult.setText(screen_new);
+                }*/
+
+                if(intermediaryResult.getText().toString().length() < 1 || result.getText().toString().length() > 1)
+                {
+                    intermediaryResult.setText("");
+                    result.setText("");
+                    this.clearScreen = false;
+                }
+                else
                 {
                     String screen_new = intermediaryResult.getText().toString().substring(0,intermediaryResult.getText().toString().length()-1);
                     intermediaryResult.setText(screen_new);
                 }
-                else
-                {
-                    intermediaryResult.setText("");
-                }
+
+
                 break;
 
             default:
