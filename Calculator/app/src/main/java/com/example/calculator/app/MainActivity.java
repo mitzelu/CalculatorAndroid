@@ -16,8 +16,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
     TextView result, intermediaryResult;
     String operator = " ";
     BigDecimal resultNumber;
-    boolean clearScreen = false;
+    int clearScreen = 1;
     boolean clearDot = true;
+    int nrOfOperators;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,7 +33,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 
         int ButtonsList[] = {R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5,
                              R.id.button6, R.id.button7, R.id.button8, R.id.button9, R.id.buttonCE, R.id.buttonC,
-                             R.id.buttonDot, R.id.buttonDiv, R.id.buttonMul, R.id.buttonPlusMinus, R.id.buttonPar,
+                             R.id.buttonDot, R.id.buttonDiv, R.id.buttonMul, R.id.buttonPercent, R.id.buttonPow,
                              R.id.buttonAdd, R.id.buttonSub, R.id.buttonEqual};
 
         for (int id:ButtonsList)
@@ -44,29 +45,65 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 
     public void setOperator(String text)
     {
-        if (this.clearScreen)
+        switch (clearScreen)
         {
-            result.setText("");
-            intermediaryResult.setText("");
-
-            if (!result.getText().toString().contains("Infinity"))
+            case 0:
             {
-                intermediaryResult.setText(String.valueOf(resultNumber));
+                 if (!result.getText().toString().contains("Inf"))
+                {
+                    intermediaryResult.setText("");
+                    result.setText("");
+                    intermediaryResult.setText(String.valueOf(resultNumber));
+                    intermediaryResult.append(text);
+                    clearScreen = 1;
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "Invalid operation", Toast.LENGTH_SHORT).show();
+                    clearScreen = 0;
+                    break;
+                }
+
+                break;
             }
 
+            case 1:
+            {
+                String lastChar = intermediaryResult.getText().toString().substring(intermediaryResult.getText().toString().length()-1,intermediaryResult.getText().toString().length());
+
+                if (intermediaryResult.getText().toString().matches("(.*)[-+÷x^](.*)")&& !lastChar.matches("^[\\d.]+$"))
+                {
+                    String Replace = intermediaryResult.getText().toString().substring(0,intermediaryResult.getText().toString().length()-1);
+                    intermediaryResult.setText(Replace);
+                    intermediaryResult.append(text);
+                }
+                if (!intermediaryResult.getText().toString().matches("(.*)[-+÷x^](.*)")&& lastChar.matches("^[\\d.]+$"))
+                {
+                        intermediaryResult.append(text);
+                }
+                break;
+            }
+
+            default:
+                break;
         }
-        intermediaryResult.append(text);
-        this.clearScreen = false;
+
     }
 
     public void setNumber(String number)
     {
-        if (this.clearScreen)
+        switch(clearScreen)
         {
-            result.setText("");
-            intermediaryResult.setText("");
-            clearScreen = false;
+            case 0:
+                result.setText("");
+                intermediaryResult.setText("");
+                clearScreen = 1;
+                break;
+
+            default:
+                break;
         }
+
         intermediaryResult.append(number);
     }
 
@@ -116,41 +153,44 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 
             case R.id.buttonAdd:
                 operator = "+";
-                //intermediaryResult.append("+");
-                //OperatorDetect();
                 setOperator("+");
                 this.clearDot = true;
                 break;
 
             case R.id.buttonSub:
                 operator = "-";
-                //intermediaryResult.append("-");
-                //OperatorDetect();
                 setOperator("-");
                 this.clearDot = true;
                 break;
 
             case R.id.buttonDiv:
                 operator = "÷";
-                //intermediaryResult.append("÷");
-                //OperatorDetect();
                 setOperator("÷");
                 this.clearDot = true;
                 break;
 
             case R.id.buttonMul:
                 operator = "x";
-                //intermediaryResult.append("x");
                 setOperator("x");
                 this.clearDot = true;
                 break;
 
+            case R.id.buttonPercent:
+                operator = "%";
+                setOperator("%");
+                this.clearDot = true;
+                break;
+
+            case R.id.buttonPow:
+                operator = "^";
+                setOperator("^");
+                this.clearDot = true;
+                break;
+
             case R.id.buttonDot:
-                if (!intermediaryResult.getText().toString().contains(".") || this.clearDot) {
-                    /*if (intermediaryResult.getText().toString().equals(""))
-                    {
-                        intermediaryResult.append("0");
-                    }*/
+
+                if (!intermediaryResult.getText().toString().contains(".") || this.clearDot)
+                {
                     intermediaryResult.append(".");
                     this.clearDot = false;
                 }
@@ -160,10 +200,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 
                 String inputStr = intermediaryResult.getText().toString();
 
-                    String [] r = inputStr.split("[-+÷x]");
-
-                   // Float  firstNumber  = Float.parseFloat(r[0]);
-                   // Float  secondNumber  = Float.parseFloat(r[1]);
+                    String [] r = inputStr.split("[-+÷x^]");
 
                     BigDecimal firstNumber = new BigDecimal(r[0]);
                     BigDecimal secondNumber = new BigDecimal(r[1]);
@@ -184,7 +221,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
                         if (secondNumber.compareTo(zeroException) == 0)
                         {
                             result.setText("Infinity");
-                            this.clearScreen = true;
+                            this.clearScreen = 0;
                             break;
                         }
                         else
@@ -199,49 +236,38 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
                         resultNumber = firstNumber.multiply(secondNumber);
                     }
 
+                   /* if (operator.equals("%"))
+                    {
+                        resultNumber = firstNumber % secondNumber;
+                    }*/
+
+                    if (operator.equals("^"))
+                    {
+                        int sec = secondNumber.intValue();
+                        resultNumber = firstNumber.pow(sec);
+                    }
+
                     result.setText("=" + String.valueOf(resultNumber));
-                    this.clearScreen = true;
+                    this.clearScreen = 0;
 
                      break;
-
-           /*case R.id.buttonPlusMinus:
-
-               String str = intermediaryResult.getText().toString();
-               StringBuilder newStr = new StringBuilder(str);
-
-                if (this.clearScreen)
-                {
-                    //intermediaryResult = intermediaryResult.substring;
-
-                    newStr.insert(0, '-');
-
-                    intermediaryResult.setText("");
-                    intermediaryResult.append(newStr);
-                    clearScreen = false;
-
-                }
-                break;*/
 
             case R.id.buttonC:
                 result.setText("");
                 intermediaryResult.setText("");
                 //operator = " ";
-                this.clearScreen = false;
+                this.clearScreen = 1;
+                nrOfOperators = 0;
                 break;
 
             case R.id.buttonCE:
-
-               /* if(intermediaryResult.getText().toString().length() > 1)
-                {
-                    String screen_new = intermediaryResult.getText().toString().substring(0,intermediaryResult.getText().toString().length()-1);
-                    intermediaryResult.setText(screen_new);
-                }*/
 
                 if(intermediaryResult.getText().toString().length() < 1 || result.getText().toString().length() > 1)
                 {
                     intermediaryResult.setText("");
                     result.setText("");
-                    this.clearScreen = false;
+                    this.clearScreen = 1;
+                    nrOfOperators = 0;
                 }
                 else
                 {

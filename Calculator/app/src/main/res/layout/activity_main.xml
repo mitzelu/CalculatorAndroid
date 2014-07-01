@@ -47,28 +47,28 @@
             android:layout_margin="2dp"/>
 
         <Button
-            android:text="÷"
-            android:id="@+id/buttonDiv"
-            android:layout_width="@dimen/size"
-            android:layout_height="@dimen/size"
-            android:layout_gravity="fill"
-            android:textColor="#ffffff"
-            android:background="#363d43"
-            android:layout_margin="2dp" />
-
-        <Button
-            android:text="x"
-            android:id="@+id/buttonMul"
-            android:layout_width="@dimen/size"
-            android:layout_height="@dimen/size"
-            android:layout_gravity="fill"
-            android:textColor="#ffffff"
-            android:background="#363d43"
-            android:layout_margin="2dp" />
-
-        <Button
             android:text="CE"
             android:id="@+id/buttonCE"
+            android:layout_width="@dimen/size"
+            android:layout_height="@dimen/size"
+            android:layout_gravity="fill"
+            android:textColor="#ffffff"
+            android:background="#363d43"
+            android:layout_margin="2dp" />
+
+        <Button
+            android:text="^"
+            android:id="@+id/buttonPow"
+            android:layout_width="@dimen/size"
+            android:layout_height="@dimen/size"
+            android:layout_gravity="fill"
+            android:textColor="#ffffff"
+            android:background="#363d43"
+            android:layout_margin="2dp" />
+
+        <Button
+            android:text="÷"
+            android:id="@+id/buttonDiv"
             android:layout_width="@dimen/size"
             android:layout_height="@dimen/size"
             android:textColor="#ffffff"
@@ -105,8 +105,8 @@
             android:layout_margin="2dp" />
 
         <Button
-            android:text="-"
-            android:id="@+id/buttonSub"
+            android:text="x"
+            android:id="@+id/buttonMul"
             android:layout_width="@dimen/size"
             android:layout_height="@dimen/size"
             android:layout_gravity="fill"
@@ -142,8 +142,8 @@
             android:layout_margin="2dp" />
 
         <Button
-            android:text="+"
-            android:id="@+id/buttonAdd"
+            android:text="-"
+            android:id="@+id/buttonSub"
             android:layout_width="@dimen/size"
             android:layout_height="@dimen/size"
             android:layout_gravity="fill"
@@ -179,8 +179,8 @@
             android:layout_margin="2dp" />
 
         <Button
-            android:text="( )"
-            android:id="@+id/buttonPar"
+            android:text="+"
+            android:id="@+id/buttonAdd"
             android:layout_gravity="fill"
             android:layout_width="@dimen/size"
             android:layout_height="@dimen/size"
@@ -209,8 +209,8 @@
             android:layout_margin="2dp" />
 
         <Button
-            android:text="+/_"
-            android:id="@+id/buttonPlusMinus"
+            android:text="%"
+            android:id="@+id/buttonPercent"
             android:layout_gravity="fill"
             android:layout_width="@dimen/size"
             android:layout_height="@dimen/size"
