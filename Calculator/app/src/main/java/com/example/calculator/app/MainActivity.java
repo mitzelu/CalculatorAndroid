@@ -275,7 +275,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
                     intermediaryResult.setText(screen_new);
                 }
 
-
                 break;
 
             default:
